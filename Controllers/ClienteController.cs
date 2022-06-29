@@ -10,7 +10,7 @@ namespace Controllers
 {
     public class ClienteController
     {
-        public int InserirCliente(Cliente cliente)
+        public Cliente InserirCliente(Cliente cliente)
         {
             return new ClienteService().InserirCliente(cliente);
         }

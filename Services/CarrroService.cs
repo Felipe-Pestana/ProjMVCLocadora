@@ -10,18 +10,18 @@ namespace Services
 {
     public class CarroService
     {
-        string dbConexao = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttchDBFileName=Locadora.mdf;";
         SqlConnection conn;
+        ConnectionDB connectionDB;
 
         public CarroService()
         {
-            conn = new SqlConnection(dbConexao);
-            conn.Open();
+            connectionDB = new ConnectionDB();
+            conn = connectionDB.OpenConnectionDB();
         }
-
-        public int InserirCarro(Carro carro)
+        //public int InserirCarro(Carro carro)
+        public Carro InserirCarro(Carro carro)
         {
-            string dataInsert = "insert into Carro (Marca, Modelo, AnoFabricacao, AnoModelo, Placa) values (@Marca, @Modelo, @AnoFabricacao, @AnoModelo, @Placa); SELECT CAST(scope_identity() AS int;)";
+            string dataInsert = "insert into Carro (Marca, Modelo, AnoFabricacao, AnoModelo, Placa) values (@Marca, @Modelo, @AnoFabricacao, @AnoModelo, @Placa); SELECT CAST(scope_identity() AS int);";
             SqlCommand commandInsert = new SqlCommand(dataInsert, conn);
 
             commandInsert.Parameters.Add(new SqlParameter("@Marca", carro.Marca));
@@ -31,8 +31,13 @@ namespace Services
             commandInsert.Parameters.Add(new SqlParameter("@Placa", carro.Placa));
 
             //commandInsert.ExecuteNonQuery();
+            conn.Open();
+            Int32 idCarro = (Int32)commandInsert.ExecuteScalar();
+            conn.Close();
+            carro.Id = idCarro;
 
-            return (Int32)commandInsert.ExecuteScalar();
+            //return idCarro;
+            return carro;
         }
         public bool ConsultarTudoCarro()
         {
