@@ -10,12 +10,12 @@ namespace Controllers
 {
     public class LocadoraController
     {
-        public int InserirLocadora(Locadora locadora)
+        public Locadora InserirLocadora(Locadora locadora)
         {
             return new LocadoraService().InserirLocadora(locadora);
         }
 
-        public bool ConsultarTudoLocadora()
+        public List<Locadora> ConsultarTudoLocadora()
         {
             return new LocadoraService().ConsultarTudoLocadora();
         }

@@ -14,5 +14,7 @@ namespace Models
         public int AnoFab { get; set; }
         public int AnoModelo { get; set; }
         public string Placa { get; set; }
+
+        
     }
 }
