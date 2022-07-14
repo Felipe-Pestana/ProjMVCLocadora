@@ -10,17 +10,17 @@ namespace Services
 {
     public class ClienteService
     {
-        readonly string dbConexao = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDBFileName=C:\Users\Pes\source\repos\ProjMVCLocadora\Banco\Locadora.mdf;";
         SqlConnection conn;
-
+        ConnectionDB ConnectionDB;
         public ClienteService()
         {
-            conn = new SqlConnection(dbConexao);
-            conn.Open();
+            ConnectionDB = new ConnectionDB();
+            conn = ConnectionDB.OpenConnectionDB();
         }
         //public int InserirCliente(Cliente cliente)
         public Cliente InserirCliente(Cliente cliente)
         {
+            conn.Open();
             string dataInsert = "insert into Cliente (Nome, Telefone) values (@Nome, @Telefone); SELECT CAST(scope_identity() AS int);";
             SqlCommand commandInsert = new SqlCommand(dataInsert, conn);
 
@@ -31,7 +31,7 @@ namespace Services
 
             Int32 idCliente = (Int32)commandInsert.ExecuteScalar();
             cliente.Id = idCliente;
-
+            conn.Close();
             return cliente;
         }
 

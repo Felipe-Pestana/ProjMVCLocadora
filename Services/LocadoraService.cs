@@ -6,17 +6,19 @@ namespace Services
 {
     public class LocadoraService
     {
-        readonly string dbConexao = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDBFileName=C:\Users\Pes\source\repos\ProjMVCLocadora\Banco\Locadora.mdf;";
-        SqlConnection conn;
 
+        SqlConnection conn;
+        ConnectionDB ConnectionDB;
         public LocadoraService()
         {
-            conn = new SqlConnection(dbConexao);
-            conn.Open();
+            ConnectionDB = new ConnectionDB();
+            conn = ConnectionDB.OpenConnectionDB();
         }
 
         public Locadora InserirLocadora(Locadora locadora)
         {
+            conn.Open();
+
             string dataInsert = "insert into Locadora (Nome, DtLocacao, idCarro, idVaga, idCliente) values (@Nome, @DtLocacao, @idCarro, @idVaga, @idCliente); SELECT CAST(scope_identity() AS int);";
             SqlCommand commandInsert = new SqlCommand(dataInsert, conn);
 
@@ -29,8 +31,9 @@ namespace Services
             //commandInsert.ExecuteNonQuery();
 
             Int32 idLocadora = (Int32)commandInsert.ExecuteScalar();
-            //locadora.Id = idLocadora;
-
+            commandInsert.ExecuteScalar();
+            locadora.Id = idLocadora;
+            conn.Close();
             return locadora;
         }
         public bool ConsultarTudoLocadora()

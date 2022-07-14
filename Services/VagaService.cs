@@ -10,17 +10,17 @@ namespace Services
 {
     public class VagaService
     {
-        readonly string dbConexao = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDBFileName=C:\Users\Pes\source\repos\ProjMVCLocadora\Banco\Locadora.mdf;";
         SqlConnection conn;
-
+        ConnectionDB ConnectionDB;
         public VagaService()
         {
-            conn = new SqlConnection(dbConexao);
-            conn.Open();
+            ConnectionDB = new ConnectionDB();
+            conn = ConnectionDB.OpenConnectionDB();
         }
         //public int InserirVaga(Vaga vaga)
         public Vaga InserirVaga(Vaga vaga)
         {
+            conn.Open();
             string dataInsert = "insert into Vaga (Descricao) values (@Descricao); SELECT CAST(scope_identity() AS int);";
             SqlCommand commandInsert = new SqlCommand(dataInsert, conn);
 
@@ -30,6 +30,8 @@ namespace Services
 
             Int32 idVaga = (Int32)commandInsert.ExecuteScalar();
             vaga.Id = idVaga;
+            conn.Close();
+
             return vaga;
         }
         public bool ConsultarTudoVaga()
