@@ -15,7 +15,7 @@ namespace Controllers
             return new LocadoraService().InserirLocadora(locadora);
         }
 
-        public bool ConsultarTudoLocadora()
+        public List<Locadora> ConsultarTudoLocadora()
         {
             return new LocadoraService().ConsultarTudoLocadora();
         }

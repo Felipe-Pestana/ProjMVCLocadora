@@ -2,6 +2,7 @@
 using Models;
 using Services;
 using System;
+using System.Collections.Generic;
 
 namespace ProjMVCLocadora
 {
@@ -10,7 +11,7 @@ namespace ProjMVCLocadora
         static void Main(string[] args)
         {
             
-            Cliente cliente = new Cliente()
+            /*Cliente cliente = new Cliente()
             { 
                 Name = "Felipe",
                 Telefone = "16 1234-9876"
@@ -37,9 +38,13 @@ namespace ProjMVCLocadora
                 Carro = new CarroController().InserirCarro(carro),
                 Vaga = new VagaController().InserirVaga(vaga),
                 Cliente = new ClienteController().InserirCliente(cliente)
-            };
+            };*/
 
-            new LocadoraController().InserirLocadora(locadora);
+            //new LocadoraController().InserirLocadora(locadora);
+
+            List<Locadora> lst = new LocadoraController().ConsultarTudoLocadora();
+
+            lst.ForEach(l => Console.WriteLine(l));
         }
     }
 }

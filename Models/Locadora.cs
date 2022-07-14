@@ -13,7 +13,13 @@ namespace Models
 
         public override string ToString()
         {
-            return base.ToString();
+            return "Código: " + Id +
+                   "\nLocadora: " + Nome +
+                   "\nModelo Carro: " + Carro.Modelo +
+                   "\nVaga: " + Vaga.Descricao +
+                   "\nCliente: " + Cliente.Nome +
+                   "\nData: " + DtLocacao +
+                   "\n\n";
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Services
             string dataInsert = "insert into Cliente (Nome, Telefone) values (@Nome, @Telefone); SELECT CAST(scope_identity() AS int);";
             SqlCommand commandInsert = new SqlCommand(dataInsert, conn);
 
-            commandInsert.Parameters.Add(new SqlParameter("@Nome", cliente.Name));
+            commandInsert.Parameters.Add(new SqlParameter("@Nome", cliente.Nome));
             commandInsert.Parameters.Add(new SqlParameter("@Telefone", cliente.Telefone));
 
             //commandInsert.ExecuteNonQuery();
