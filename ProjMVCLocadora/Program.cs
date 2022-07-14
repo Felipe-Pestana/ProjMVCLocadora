@@ -1,5 +1,6 @@
 ﻿using Controllers;
 using Models;
+using Services;
 using System;
 
 namespace ProjMVCLocadora
@@ -29,14 +30,16 @@ namespace ProjMVCLocadora
                 Descricao = "Liberado"
             };
 
-            /*Locadora locadora = new Locadora()
+            Locadora locadora = new Locadora()
             {
                 Nome = "Rent a Car",
                 DtLocacao = DateTime.Now,
-                Carro = InserirCarro(carro),
-                Vaga = vaga,
-                Cliente = cliente
-            };*/
+                Carro = new CarroController().InserirCarro(carro),
+                Vaga = new VagaController().InserirVaga(vaga),
+                Cliente = new ClienteController().InserirCliente(cliente)
+            };
+
+            new LocadoraController().InserirLocadora(locadora);
         }
     }
 }

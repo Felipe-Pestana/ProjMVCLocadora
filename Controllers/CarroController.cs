@@ -6,7 +6,7 @@ namespace Controllers
 {
     public class CarroController
     {
-        public int InserirCarro(Carro carro)
+        public Carro InserirCarro(Carro carro)
         {
             return new CarroService().InserirCarro(carro);
         }

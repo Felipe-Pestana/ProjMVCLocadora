@@ -10,7 +10,7 @@ namespace Controllers
 {
     public class VagaController
     {
-        public int InserirVaga(Vaga vaga)
+        public Vaga InserirVaga(Vaga vaga)
         {
             return new VagaService().InserirVaga(vaga);
         }
